@@ -1,0 +1,16 @@
+{
+  "name"         : "horseracepredictor",
+  "version"      : "0.0.1",
+  "description"  : "Scrapes horse races webs",
+  "main"         : "databaseCreator.js",
+  "author"       : "Victor G. Llorente",
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest",
+    "realm"      : "latest",
+    "synaptic"   : "latest",
+    "promise"    : "latest",
+    "moment"     : "latest"
+  }
+}
