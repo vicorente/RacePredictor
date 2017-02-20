@@ -91,7 +91,7 @@ var getInputRace = function getInputRace(url, callBack) {
                         caballo["participantes"] = parseInt(participantes);
 
                         //caballo["terreno"] = $(this).parent().parent().find("span.Estilo5").eq(1).text().replace('Terreno:', '').trim();
-                        
+
                         var padre = {};
                         padre["nombre"] = campo.find("a").eq(1).text().trim();
                         padre["url"] = campo.find("a").eq(1).eq(0).attr('href').substring(2);
@@ -126,14 +126,14 @@ var getInputRace = function getInputRace(url, callBack) {
                         }).eq(1).text().trim();
                         caballo["cajon"] = parseInt(cajonFinal);
                         caballosCarrera[j] = caballo;
-                        
+
                     }
                     catch (err) {
                         console.log(err);
                     }
 
                 });
-                
+
                 carreras[i] = caballosCarrera;
             });
             callBack(carreras);
@@ -225,12 +225,10 @@ var getEventRaces = function getEventRaces(url) {
                 carrerasHtml.each(function(i, element) {
                     // con parent().parent() obtenemos la tabla de la carrera
                     var caballos = $(element).parent().parent().find("td.carreras7");
-
                     var caballosCarrera = [];
                     caballos.each(function(j, element) {
                         var caballo = {};
                         var campo = $(this).parent().find("table tr td.carreras11");
-
                         try {
                             caballo["id"] = campo.find("a").eq(0).text().trim() + "_" + getParam("Fecha", url);
                             caballo["url"] = campo.find("a").eq(0).attr('href').substring(2);
@@ -307,36 +305,40 @@ var getEventRaces = function getEventRaces(url) {
             else {
                 reject(error)
             }
-            //callBack();
         });
     });
 }
-
+/**
+ * Guarda 
+ **/
 var saveRace = function saveRace(carreras) {
     var promise = Promise.resolve(null)
-        // busqueda asíncrona secuencial en forEach
+    // busqueda asíncrona secuencial en forEach
     carreras.forEach(function(carreraCaballos) {
         carreraCaballos.forEach(function(caballoCarrera) {
-            promise = promise.then(function() {
-                return getPreviousHorseRaces(mainURL + caballoCarrera.url)
-            }).then(function(datosCaballo) {
-                if (!isNaN(datosCaballo.nacimiento)) {
-                    //si el caballo existe en la BD no insertamos
-                    console.log("inserting..." + datosCaballo.id)
-                    try {
-                        realm.write(() => {
-                            let horse = realm.create('Horse', {
-                                id: datosCaballo.id,
-                                nacimiento: datosCaballo.nacimiento,
-                            }, true);
-                        });
+            var caballo = realm.objects('Horse').filtered('id = $0', caballoCarrera.caballoid)
+            if (caballo.length <= 0) {
+                promise = promise.then(function() {
+                    return getPreviousHorseRaces(mainURL + caballoCarrera.url)
+                }).then(function(datosCaballo) {
+                    if (!isNaN(datosCaballo.nacimiento)) {
+                        //si el caballo existe en la BD no insertamos
+                        console.log("inserting..." + datosCaballo.id)
+                        try {
+                            realm.write(() => {
+                                let horse = realm.create('Horse', {
+                                    id: datosCaballo.id,
+                                    nacimiento: datosCaballo.nacimiento,
+                                }, true);
+                            });
+                        }
+                        catch (writeError) {
+                            console.log(writeError)
+                            console.log("Error guardar el caballo " + datosCaballo.id + " " + datosCaballo.nacimiento)
+                        }
                     }
-                    catch (writeError) {
-                        console.log(writeError)
-                        console.log("Error guardar el caballo " + datosCaballo.id + " " + datosCaballo.nacimiento)
-                    }
-                }
-            })
+                })
+            }
         })
     })
     return promise
