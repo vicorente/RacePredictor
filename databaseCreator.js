@@ -22,7 +22,7 @@ let realm = new Realm({
   schema: [realmSchema.PremioSchema,realmSchema.HorseSchema,realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 });
 
-var start = Date.parse("2009-01-01");
+var start = Date.parse("2009-03-22");
 //var start = Date.parse("2016-08-12");
 var end = Date.parse("2017-02-19");
 
@@ -46,7 +46,7 @@ console.log(horses.length)
     process.exit(0)
 })*/
 
-racesScrapper.sequentialScrapper(mijasURL, start, end).then(function(result, error){
+racesScrapper.sequentialScrapper(antelaURL, start, end).then(function(result, error){
     if (error) {
         console.log(error)
     }
