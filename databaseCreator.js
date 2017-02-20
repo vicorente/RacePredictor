@@ -8,21 +8,24 @@ var promise = require('promise');
 var mainURL = "http://www.agalopar.com/agt";
 var realmSchema = require("./realmSchema.js");
 
+var participantsURL = "http://www.agalopar.com/agt/resultados/resultado1foto.asp?Numero=413&Fecha=27-11-2016";
+
+
 var searchURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Dos%20Hermanas&Fecha=";
 var zarzuelaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=La%20Zarzuela&Fecha=";
 var vilasecaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Vila-Seca&Fecha=";
 var pinedaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Pineda&Fecha=";
-var participantsURL = "http://www.agalopar.com/agt/resultados/resultado1foto.asp?Numero=413&Fecha=27-11-2016";
 var sanSebastianURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=San%20Sebasti%E1n&Fecha=";
 var loredoURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Loredo&Fecha="
 var sanlucarURL ="http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Sanl%FAcar%20de%20Barrameda&Fecha="
 var mijasURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Mijas&Fecha="
 var antelaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Antela&Fecha="
+
 let realm = new Realm({
   schema: [realmSchema.PremioSchema,realmSchema.HorseSchema,realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 });
 
-var start = Date.parse("2009-03-22");
+var start = Date.parse("2016-09-18");
 //var start = Date.parse("2016-08-12");
 var end = Date.parse("2017-02-19");
 
@@ -46,7 +49,7 @@ console.log(horses.length)
     process.exit(0)
 })*/
 
-racesScrapper.sequentialScrapper(antelaURL, start, end).then(function(result, error){
+racesScrapper.sequentialScrapper(pinedaURL, start, end).then(function(result, error){
     if (error) {
         console.log(error)
     }
