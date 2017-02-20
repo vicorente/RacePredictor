@@ -104,6 +104,7 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
 
             var selected = {
                 "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
+                "participantes" : normalizaParticipantes(caballo.participantes),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
                 "edad": edad,
@@ -251,6 +252,7 @@ exports.normalize = function normalize(realm) {
 
             var selected = {
                 "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
+                "participantes" : normalizaParticipantes(caballo.participantes),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
                 "edad": edad,
@@ -277,7 +279,6 @@ exports.normalize = function normalize(realm) {
                 "premios2": premios2,
                 "premios3": premios3,
                 "premios4": premios4,
-
             };
             //console.log(selected)
             var vector = [];
@@ -331,6 +332,15 @@ function normalizedColocado(colocado) {
         return 1;
     } else {
         return colocado / maxValue;
+    }
+}
+
+function normalizaParticipantes(participantes) {
+    const maxValue = 10;
+    if (participantes > maxValue) {
+        return 1;
+    } else {
+        return participantes / maxValue;
     }
 }
 
