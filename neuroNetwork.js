@@ -22,16 +22,9 @@ let realm = new Realm({
     schema: [realmSchema.PremioSchema, realmSchema.HorseSchema, realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 });
 
-
-console.log("normalizando...")
-/*if (fs.existsSync('normalized.json')) {
-    // Do something
-}*/
-//const matriz = normalizer.normalize(realm);
-
 console.log("leyendo de normalized.json ...")
 var trainingSet = []
-fs.readFileSync('normalized.json').rtoString().split('\n').forEach(function (line) {
+fs.readFileSync('normalized.json').toString().split('\n').forEach(function (line) {
     try {
         trainingSet.push(JSON.parse(line))
     } catch(error) {
@@ -40,12 +33,13 @@ fs.readFileSync('normalized.json').rtoString().split('\n').forEach(function (lin
 })
 var numParametros = trainingSet[0].input.length;
 console.log("entrenando...")
-var myPerceptron = new synaptic.Architect.Perceptron(numParametros, 20, 20, 1);
+var myPerceptron = new synaptic.Architect.Perceptron(numParametros, 30, 30, 30, 1);
 var trainingOptions = {
-    rate: .01,
+    rate: .05,
     iterations: 100000,
     log: 100,
-    error: .01
+    error: .005,
+    cost: synaptic.Trainer.cost.CROSS_ENTROPY
 }
 
 var myTrainer = new synaptic.Trainer(myPerceptron);

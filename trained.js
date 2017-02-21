@@ -1,7 +1,7 @@
 'use strict';
 var exports = module.exports = {};
 
-exports.trained = function (input) {
+exports.trained = function(input) {
     var F = {
         0: 0,
         1: 1,
