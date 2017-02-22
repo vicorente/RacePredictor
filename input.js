@@ -12,25 +12,33 @@ var realmSchema = require("./realmSchema.js");
 const url = "http://www.agalopar.com/agt/carreras/carreras.asp?Hipodromo=Dos%20Hermanas&Fecha=19-02-2017";
 
 let realm = new Realm({
-    schema: [realmSchema.PremioSchema,realmSchema.HorseSchema, realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
+  schema: [realmSchema.PremioSchema, realmSchema.HorseSchema, realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 })
 
 races.getInputRace(url, function(carreras) {
   //console.log(carreras)
   var inputs = normalizer.normalizeRace(realm, carreras);
   //console.log(inputs)
-  var carrera = 1;
-  var order = 1;
-  
-  inputs.forEach(function (caballo) {
-    if (caballo.carrera != carrera) {
-      carrera = caballo.carrera;
-      console.log("--------------- CARRERA " + carrera + " ---------------");
-      order = 1;
-    }
-    console.log("Nº: " + order + " - CAJÓN: " + caballo.cajon + " - NOMBRE: " + caballo.id + " " +
-      trained.trained(caballo.input));
-    order = order + 1;
+  var races = [];
+  inputs.forEach(function(caballo) {
+    var caballoCarrera = {}
+    caballoCarrera.carrera = caballo.carrera
+    caballoCarrera.cajon = caballo.cajon
+    caballoCarrera.id = caballo.id
+    caballoCarrera.output = trained.trained(caballo.input)
+    races.push(caballoCarrera)
   })
+  races.sort(function(a, b) {
+    return b.output - a.output
+  })
+  
+  for(var i = 1 ; i <= 5; i++) {
+    console.log("----------------------CARRERA " + i +"----------------------")
+    var race = races.filter(function(elem){
+      return elem.carrera == i
+    })
+    console.log(race)
+  }
+  
   process.exit(0);
 });

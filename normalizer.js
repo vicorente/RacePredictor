@@ -103,7 +103,6 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3]) : 0
 
             var selected = {
-                "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
                 "participantes" : normalizaParticipantes(caballo.participantes),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
@@ -251,7 +250,6 @@ exports.normalize = function normalize(realm) {
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3].value) : 0
 
             var selected = {
-                "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
                 "participantes" : normalizaParticipantes(caballo.participantes),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
@@ -289,9 +287,8 @@ exports.normalize = function normalize(realm) {
             }
             var trainingSet = {
                 input: [].concat.apply([], vector),
-                output: [selected["posicion"]]
+                output: [normalizaPosicion(caballo.posicion)]
             }
-
             fs.appendFileSync('normalized.json', JSON.stringify(trainingSet) + "\n")
         }
     });
@@ -308,7 +305,7 @@ function normalizedAge(age) {
 }
 
 function normalizedVictorias(victorias) {
-    const maxValue = 10;
+    const maxValue = 15;
     if (victorias > maxValue) {
         return 1;
     } else {
@@ -327,7 +324,7 @@ function normalizedCarreras(carreras) {
 
 
 function normalizedColocado(colocado) {
-    const maxValue = 10;
+    const maxValue = 15;
     if (colocado > maxValue) {
         return 1;
     } else {
@@ -336,7 +333,7 @@ function normalizedColocado(colocado) {
 }
 
 function normalizaParticipantes(participantes) {
-    const maxValue = 10;
+    const maxValue = 15;
     if (participantes > maxValue) {
         return 1;
     } else {
