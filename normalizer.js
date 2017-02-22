@@ -15,12 +15,11 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
     const maxEdad = Math.max.apply(Math, distinctAge(carreras));
     const pistas = normalizedVector(distinctTerrain(carreras));
     const distancias = normalizedVector(distinctDistancias(carreras));
-    const maxDistancia = Math.max.apply(Math, distinctDistancias(carreras))
+    const maxDistancia = Math.max.apply(Math, distinctDistancias(carreras));
 
     var ordenCarrera = 0
     carrera.forEach(function (caballos) {
         // primero obtenemos los datos del caballo
-        //console.log(caballo)
         ordenCarrera = ordenCarrera + 1
         caballos.forEach(function (caballo, posInicio) {
             var datosCaballo = realm.objects('Horse').filtered('id = $0', caballo.caballoid)
@@ -251,7 +250,7 @@ exports.normalize = function normalize(realm) {
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3].value) : 0
 
             var selected = {
-                "participantes" : normalizaParticipantes(caballo.participantes),
+                "participantes" : normalizaParticipantes(caballo.participantes).toFixed(2),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
                 "edad": edad,
@@ -288,7 +287,7 @@ exports.normalize = function normalize(realm) {
             }
             var trainingSet = {
                 input: [].concat.apply([], vector),
-                output: [normalizaPosicion(caballo.posicion)]
+                output: [(caballo.posicion / caballo.participantes).toFixed(2)]
             }
             fs.appendFileSync('normalized.json', JSON.stringify(trainingSet) + "\n")
         }

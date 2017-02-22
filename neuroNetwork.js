@@ -33,13 +33,13 @@ fs.readFileSync('normalized.json').toString().split('\n').forEach(function (line
 })
 var numParametros = trainingSet[0].input.length;
 console.log("entrenando...")
-var myPerceptron = new synaptic.Architect.Perceptron(numParametros,  numParametros + 10, Math.floor(numParametros / 1.1), 1);
+var myPerceptron = new synaptic.Architect.Perceptron(numParametros, numParametros, 1);
 var trainingOptions = {
-    rate: [.01, .001],
-    iterations: 10000,
+    rate: [.009, .005],
+    iterations: 1000,
     log: 100,
-    error: .005,
-    shuffle: false,
+    error: .05,
+    shuffle: true,
     cost: synaptic.Trainer.cost.MSE
 }
 
