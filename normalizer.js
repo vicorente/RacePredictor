@@ -22,7 +22,7 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
         // primero obtenemos los datos del caballo
         //console.log(caballo)
         ordenCarrera = ordenCarrera + 1
-        caballos.forEach(function (caballo) {
+        caballos.forEach(function (caballo, posInicio) {
             var datosCaballo = realm.objects('Horse').filtered('id = $0', caballo.caballoid)
             var fechaCarrera = moment(caballo.id.split('_')[1], "DD-MM-YYYY")
             if (datosCaballo.length > 0) {
@@ -139,6 +139,7 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
                 }
             }
             var trainingSet = {
+                numero: posInicio + 1,
                 carrera: ordenCarrera,
                 cajon: caballo.cajon,
                 id: caballo.id,
