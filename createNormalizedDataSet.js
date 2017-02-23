@@ -10,8 +10,5 @@ let realm = new Realm({
 
 
 console.log("normalizando...")
-/*if (fs.existsSync('normalized.json')) {
-    // Do something
-}*/
 const matriz = normalizer.normalize(realm);
 process.exit(0)

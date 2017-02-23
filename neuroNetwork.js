@@ -1,6 +1,5 @@
 'use strict';
-var request = require('request');
-var cheerio = require('cheerio');
+
 var Realm = require('realm');
 var fs = require('fs');
 var races = require("./racesScrapper.js");
@@ -8,15 +7,7 @@ var normalizer = require("./normalizer.js");
 var realmSchema = require("./realmSchema.js");
 var synaptic = require('synaptic');
 var trained = require('./trained.js')
-var mainURL = "http://www.agalopar.com/agt";
 var fs = require('fs');
-var searchURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Dos%20Hermanas&Fecha=";
-var zarzuelaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=La%20Zarzuela&Fecha=";
-var vilasecaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Vila-Seca&Fecha=";
-var pinedaURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Pineda&Fecha=";
-var sanSebastianURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=San%20Sebasti%E1n&Fecha=";
-var loredoURL = "http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Loredo&Fecha="
-var sanlucarURL ="http://www.agalopar.com/agt/carreras/resultado.asp?Hipodromo=Sanl%FAcar%20de%20Barrameda&Fecha="
 
 let realm = new Realm({
     schema: [realmSchema.PremioSchema, realmSchema.HorseSchema, realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
@@ -35,8 +26,8 @@ var numParametros = trainingSet[0].input.length;
 console.log("entrenando...")
 var myPerceptron = new synaptic.Architect.Perceptron(numParametros, numParametros, 1);
 var trainingOptions = {
-    rate: [.009, .005],
-    iterations: 1000,
+    rate: [.01, .001],
+    iterations: 100000,
     log: 100,
     error: .05,
     shuffle: true,

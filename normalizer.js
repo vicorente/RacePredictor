@@ -91,7 +91,7 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
                 return moment(b.id.split('_')[1], "DD-MM-YYYY").toDate() - moment(a.id.split('_')[1], "DD-MM-YYYY").toDate()
             })
 
-            let diasUltimaCarrera = totalCarreras.length > 0 ? fechaCarrera.diff(moment(totalCarreras[0].id.split('_')[1], "DD-MM-YYYY"), 'days') : 0
+            let diasUltimaCarrera = totalCarreras.length > 0 ? fechaCarrera.diff(moment(totalCarreras[0].id.split('_')[1], "DD-MM-YYYY"), 'days') : 100
             let posicionPrevia1 = totalCarreras.length > 0 ? normalizaPosicion(totalCarreras[0].posicion) : 0
             let posicionPrevia2 = totalCarreras.length > 1 ? normalizaPosicion(totalCarreras[1].posicion) : 0
             let posicionPrevia3 = totalCarreras.length > 2 ? normalizaPosicion(totalCarreras[2].posicion) : 0
@@ -239,7 +239,7 @@ exports.normalize = function normalize(realm) {
                 return moment(b.id.split('_')[1], "DD-MM-YYYY").toDate() - moment(a.id.split('_')[1], "DD-MM-YYYY").toDate()
             })
 
-            let diasUltimaCarrera = totalCarreras.length > 0 ? fechaCarrera.diff(moment(totalCarreras[0].id.split('_')[1], "DD-MM-YYYY"), 'days') : 0
+            let diasUltimaCarrera = totalCarreras.length > 0 ? fechaCarrera.diff(moment(totalCarreras[0].id.split('_')[1], "DD-MM-YYYY"), 'days') : 100
             let posicionPrevia1 = totalCarreras.length > 0 ? normalizaPosicion(totalCarreras[0].posicion) : 0
             let posicionPrevia2 = totalCarreras.length > 1 ? normalizaPosicion(totalCarreras[1].posicion) : 0
             let posicionPrevia3 = totalCarreras.length > 2 ? normalizaPosicion(totalCarreras[2].posicion) : 0
@@ -248,7 +248,6 @@ exports.normalize = function normalize(realm) {
             let premios2 = premios.length > 1 ? normalizedPremio(premios[1].value) : 0
             let premios3 = premios.length > 2 ? normalizedPremio(premios[2].value) : 0
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3].value) : 0
-
             var selected = {
                 "participantes" : normalizaParticipantes(caballo.participantes).toFixed(2),
                 "sexo": sexos[caballo.sexo],
@@ -324,7 +323,7 @@ function normalizedCarreras(carreras) {
 
 
 function normalizedColocado(colocado) {
-    const maxValue = 15;
+    const maxValue = 20;
     if (colocado > maxValue) {
         return 1;
     } else {
@@ -460,6 +459,8 @@ function normalizaPosicion(posicion) {
             return 0.25;
         case 4:
             return 0.15;
+        case 5:
+            return 0.10;
         default:
             return 0;
     }
