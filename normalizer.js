@@ -102,6 +102,7 @@ exports.normalizeRace = function normalizeRace(realm, carrera) {
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3]) : 0
 
             var selected = {
+                "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
                 "participantes" : normalizaParticipantes(caballo.participantes),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
@@ -249,6 +250,7 @@ exports.normalize = function normalize(realm) {
             let premios3 = premios.length > 2 ? normalizedPremio(premios[2].value) : 0
             let premios4 = premios.length > 3 ? normalizedPremio(premios[3].value) : 0
             var selected = {
+                "posicion": (caballo.participantes + 1 - caballo.posicion) * (1 / caballo.participantes),
                 "participantes" : normalizaParticipantes(caballo.participantes).toFixed(2),
                 "sexo": sexos[caballo.sexo],
                 "color": colores[caballo.color],
@@ -286,7 +288,7 @@ exports.normalize = function normalize(realm) {
             }
             var trainingSet = {
                 input: [].concat.apply([], vector),
-                output: [(caballo.posicion / caballo.participantes).toFixed(2)]
+                output: [selected["posicion"]]
             }
             fs.appendFileSync('normalized.json', JSON.stringify(trainingSet) + "\n")
         }
