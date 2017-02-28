@@ -25,9 +25,9 @@ let realm = new Realm({
   schema: [realmSchema.PremioSchema,realmSchema.HorseSchema,realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 });
 
-var start = Date.parse("2017-02-12");
+var start = Date.parse("2017-02-26");
 //var start = Date.parse("2016-08-12");
-var end = Date.parse("2017-02-26");
+var end = Date.parse("2017-02-27");
 
 var horses = realm.objects('HorseRace')
 console.log(horses.length)
