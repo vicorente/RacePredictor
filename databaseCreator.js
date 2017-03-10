@@ -25,9 +25,9 @@ let realm = new Realm({
   schema: [realmSchema.PremioSchema,realmSchema.HorseSchema,realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
 });
 
-var start = Date.parse("2017-02-26");
+var start = Date.parse("2017-03-04");
 //var start = Date.parse("2016-08-12");
-var end = Date.parse("2017-02-27");
+var end = Date.parse("2017-03-06");
 
 var horses = realm.objects('HorseRace')
 console.log(horses.length)
@@ -49,7 +49,7 @@ console.log(horses.length)
     process.exit(0)
 })*/
 
-racesScrapper.sequentialScrapper(searchURL, start, end).then(function(result, error){
+racesScrapper.sequentialScrapper(zarzuelaURL, start, end).then(function(result, error){
     if (error) {
         console.log(error)
     }
