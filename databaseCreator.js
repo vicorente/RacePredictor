@@ -27,7 +27,7 @@ let realm = new Realm({
 
 var start = Date.parse("2017-03-04");
 //var start = Date.parse("2016-08-12");
-var end = Date.parse("2017-03-06");
+var end = Date.parse("2017-03-20");
 
 var horses = realm.objects('HorseRace')
 console.log(horses.length)

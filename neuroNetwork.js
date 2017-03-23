@@ -24,11 +24,11 @@ fs.readFileSync('normalized.json').toString().split('\n').forEach(function (line
 })
 var numParametros = trainingSet[0].input.length;
 console.log("entrenando...")
-var myPerceptron = new synaptic.Architect.LSTM(numParametros, 4,4, 1);
+var myPerceptron = new synaptic.Architect.Perceptron(numParametros, 10, 4, 1);
 var trainingOptions = {
-    rate: [.01, .001, .0001],
-    iterations: 500,
-    log: 1,
+    rate: [.01],
+    iterations: 10000,
+    log: 100,
     error: .05,
 }
 
