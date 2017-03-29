@@ -9,7 +9,7 @@ var normalizer = require("./normalizer.js");
 var Realm = require('realm');
 var realmSchema = require("./realmSchema.js");
 
-const url = "http://www.agalopar.com/agt/carreras/carreras.asp?Hipodromo=La%20Zarzuela&Fecha=19-03-2017";
+const url = "http://www.agalopar.com/agt/carreras/carreras.asp?Hipodromo=La%20Zarzuela&Fecha=26-03-2017";
 
 let realm = new Realm({
   schema: [realmSchema.PremioSchema, realmSchema.HorseSchema, realmSchema.HorseRaceSchema, realmSchema.SementalSchema, realmSchema.YeguaSchema, realmSchema.JineteSchema, realmSchema.PreparadorSchema, realmSchema.PreviaSchema]
